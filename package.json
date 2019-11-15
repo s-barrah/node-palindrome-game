@@ -1,9 +1,8 @@
 {
-  "name": "framework",
+  "name": "node-palindrome-game",
   "version": "1.0.0",
-  "description": "Palidrone Game",
+  "description": "Palidrome Game",
   "main": "index.js",
-  "repository": "git@github.com:supersolid/framework.git",
   "author": "Sidney Barrah <neothedeveloper231@gmail.com>",
   "license": "MIT",
   "private": true,
