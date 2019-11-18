@@ -4,6 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 
 import DBService from './src/services/DB.service';
+import DataHandlerService from "./src/services/DataHandler.service";
 
 // import data
 import models from './src/models';
@@ -11,11 +12,15 @@ import models from './src/models';
 // import modular routes
 import routes from './src/routes';
 
+
+
 // initialise the express app
 const app = express();
 
 // initialise DB service
 const dbService = new DBService();
+
+const dataHandlerService = new DataHandlerService();
 
 app.use(express.static(__dirname));
 
@@ -37,9 +42,6 @@ app.use(async (req, res, next) => {
 app.use('/api', routes.AppRoute);
 
 
-
-
-
 // Home route
 app.get('/', function(req, res) {
 	res.render('index.html');
@@ -54,6 +56,7 @@ dbService.connect()
       await Promise.all([
         models.GameModel.deleteMany({}),
       ]);
+      // dataHandlerService.writeFilesToOutput('data.json', [);
     }
     app.listen(process.env.PORT, () => {
       console.log('Server', process.pid, 'listening on port', process.env.PORT);

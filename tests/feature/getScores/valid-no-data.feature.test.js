@@ -29,11 +29,6 @@ describe('POST /getScores - Get no scores from database', () => {
     done();
   });
 
-  it('should expect a status message', (done) => {
-    expect(response).to.eql('No records!');
-    done();
-  });
-
 
 
 

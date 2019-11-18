@@ -27,13 +27,13 @@ describe('POST /submitEntry - Submit an invalid request to endpoint', () => {
       });
   });
 
-  it('should expect a 200 status code', (done) => {
-    expect(statusCode).to.eql(200);
+  it('should expect a 500 status code', (done) => {
+    expect(statusCode).to.eql(500);
     done();
   });
 
   it('should expect a status message', (done) => {
-    expect(response).to.eql('Word is not a palindrome');
+    expect(response.error).to.eql('Word is not a palindrome!');
     done();
   });
 

@@ -28,6 +28,17 @@ the following command:
 yarn start
 ```
 
+## Architecture 
+
+This section outlines the core areas of the application and the logic used when implemented.
+
+- [Data Layer](#data-layer)
+
+
+### Data Layer
+The application persists the high scores by storing locally in the `outputs/tmp` folder.
+
+
 ## Testing
 
 Tests are located in the `tests` folder and can be invoked by running `yarn unit-test` to run the unit tests and `yarn feature-test` to run the API tests. These tests will invoke the defined 

@@ -1,8 +1,16 @@
+import fs from 'fs';
+
+import DataHandlerService from '../services/DataHandler.service';
 
 import { palindrome } from '../lib/Utils';
 
+const filePath = `${__dirname}/../../outputs/tmp/data.json`;
+
 export default class AppController {
 
+  constructor() {
+    this.file = filePath;
+  }
   /**
    * Submit Entry function
    * @param req
@@ -14,18 +22,27 @@ export default class AppController {
     const { name, word } = req.body;
     if (name && word) {
       if (palindrome(word)) {
+
         const entry = AppController.getEntryParams(name, word);
-        req.context.models.GameModel.create(entry, (err) => {
-          if(err) {
-            return next(err);
-          }
+        const storage = [entry];
+
+        const dataHandlerService = new DataHandlerService();
+        const results = dataHandlerService.readFilesFromOutput('data.json');
+
+        if (results) {
+          storage.push(...results) ;
+        }
+        try {
+          dataHandlerService.writeFilesToOutput('data.json', storage);
           res.send('Entry submitted');
-        });
+        } catch (e) {
+          return next(e);
+        }
       } else {
-        res.send('Word is not a palindrome');
+        res.status(400).send('Word is not a palindrome!');
       }
     } else {
-      res.send('Required values are missing!');
+      res.status(400).send('Required values are missing!');
     }
 
   }
@@ -37,21 +54,15 @@ export default class AppController {
    * @param next
    */
   getScores(req, res, next) {
-    req.context.models.GameModel
-      .find().lean()
-      .limit(5)
-      .sort({ 'points': -1 })
-      .then((results) => {
-        if (results && results.length > 0) {
-          res.send(results);
-        } else {
-          res.send('No records!');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        next(error);
-      });
+    const dataHandlerService = new DataHandlerService();
+    try {
+      const results = dataHandlerService.readFilesFromOutput('data.json');
+      res.send(results);
+
+    } catch(err) {
+      console.error(err);
+      return next(err);
+    }
   }
 
 

@@ -25,12 +25,12 @@ describe('POST /submitEntry - Submit empty request to endpoint', () => {
   });
 
   it('should expect a status code', (done) => {
-    expect(statusCode).to.eql(200);
+    expect(statusCode).to.eql(500);
     done();
   });
 
   it('should expect a status message', (done) => {
-    expect(response).to.eql('Required values are missing!');
+    expect(response.error).to.eql('Required values are missing!');
     done();
   });
 
