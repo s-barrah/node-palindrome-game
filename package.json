@@ -17,7 +17,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonfile": "^5.0.0",
-    "mongoose": "^5.11.7"
+    "mongoose": "^5.12.2"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
